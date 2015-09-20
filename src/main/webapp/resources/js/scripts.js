@@ -12,12 +12,12 @@ $(document).ready(function () {
 
 $('#usuaTipoUsuario').change(function () {
     var img = $('#iconTipoUsuario');
-    if ($('#usuaTipoUsuario option:selected').text().indexOf('Jur') > -1) {
-        img.attr('src', '../imagens/icones/company_ic.png');
-    } else if ($('#usuaTipoUsuario option:selected').text().indexOf('F') > -1) {
-        img.attr('src', '../imagens/icones/worker_ic.png');
+    if ($('#usuaTipoUsuario option:selected').text().indexOf('Jurídica') > -1) {
+        img.attr('src', '../resources/imagens/icones/company_ic.png');
+    } else if ($('#usuaTipoUsuario option:selected').text().indexOf('Física') > -1) {
+        img.attr('src', '../resources/imagens/icones/worker_ic.png');
     }else{
-        img.attr('src', '../imagens/icones/blank_ic.jpg');        
+        img.attr('src', '../resources/imagens/icones/blank_ic.jpg');        
     }
 
 });
