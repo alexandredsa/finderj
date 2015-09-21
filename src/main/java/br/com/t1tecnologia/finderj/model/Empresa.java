@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.t1tecnologia.finderj.model;
 
 import br.com.t1tecnologia.finderj.enums.EstadoEnum;
@@ -14,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -27,6 +24,7 @@ import javax.persistence.OneToOne;
 public class Empresa implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "empr_id")
     private Long ID;
     @Column(name = "empr_nome", length = 40, nullable = false)
@@ -61,9 +59,25 @@ public class Empresa implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "empr_vaga_id")
     private List<Vaga> emprVaga = new ArrayList<>();
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "empr_usua_id")
     private Usuario emprUsuario;
+
+    public Long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public String getEmprNome() {
+        return emprNome;
+    }
+
+    public void setEmprNome(String emprNome) {
+        this.emprNome = emprNome;
+    }
 
     public String getEmprRazaoSocial() {
         return emprRazaoSocial;
@@ -71,38 +85,6 @@ public class Empresa implements Serializable {
 
     public void setEmprRazaoSocial(String emprRazaoSocial) {
         this.emprRazaoSocial = emprRazaoSocial;
-    }
-
-    public String getEmprNome() {
-        return emprNome;
-    }
-
-    public String getEmprBairro() {
-        return emprBairro;
-    }
-
-    public void setEmprBairro(String emprBairro) {
-        this.emprBairro = emprBairro;
-    }
-
-    public String getEmprCidade() {
-        return emprCidade;
-    }
-
-    public void setEmprCidade(String emprCidade) {
-        this.emprCidade = emprCidade;
-    }
-
-    public EstadoEnum getEmprEstado() {
-        return emprEstado;
-    }
-
-    public void setEmprEstado(EstadoEnum emprEstado) {
-        this.emprEstado = emprEstado;
-    }
-
-    public void setEmprNome(String emprNome) {
-        this.emprNome = emprNome;
     }
 
     public String getEmprDescricao() {
@@ -129,6 +111,38 @@ public class Empresa implements Serializable {
         this.emprCep = emprCep;
     }
 
+    public String getEmprBairro() {
+        return emprBairro;
+    }
+
+    public void setEmprBairro(String emprBairro) {
+        this.emprBairro = emprBairro;
+    }
+
+    public String getEmprRua() {
+        return emprRua;
+    }
+
+    public void setEmprRua(String emprRua) {
+        this.emprRua = emprRua;
+    }
+
+    public String getEmprCidade() {
+        return emprCidade;
+    }
+
+    public void setEmprCidade(String emprCidade) {
+        this.emprCidade = emprCidade;
+    }
+
+    public EstadoEnum getEmprEstado() {
+        return emprEstado;
+    }
+
+    public void setEmprEstado(EstadoEnum emprEstado) {
+        this.emprEstado = emprEstado;
+    }
+
     public String getEmprNumeroResidencia() {
         return emprNumeroResidencia;
     }
@@ -153,22 +167,6 @@ public class Empresa implements Serializable {
         this.emprNomeContato = emprNomeContato;
     }
 
-    public String getEmprTelefone() {
-        return emprTelefone;
-    }
-
-    public void setEmprTelefone(String emprTelefone) {
-        this.emprTelefone = emprTelefone;
-    }
-
-    public Usuario getEmprUsuario() {
-        return emprUsuario;
-    }
-
-    public void setEmprUsuario(Usuario emprUsuario) {
-        this.emprUsuario = emprUsuario;
-    }
-
     public String getEmprUrlLogo() {
         return emprUrlLogo;
     }
@@ -177,12 +175,12 @@ public class Empresa implements Serializable {
         this.emprUrlLogo = emprUrlLogo;
     }
 
-    public Long getID() {
-        return ID;
+    public String getEmprTelefone() {
+        return emprTelefone;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setEmprTelefone(String emprTelefone) {
+        this.emprTelefone = emprTelefone;
     }
 
     public List<Vaga> getEmprVaga() {
@@ -193,12 +191,12 @@ public class Empresa implements Serializable {
         this.emprVaga = emprVaga;
     }
 
-    public String getEmprRua() {
-        return emprRua;
+    public Usuario getEmprUsuario() {
+        return emprUsuario;
     }
 
-    public void setEmprRua(String emprRua) {
-        this.emprRua = emprRua;
+    public void setEmprUsuario(Usuario emprUsuario) {
+        this.emprUsuario = emprUsuario;
     }
 
 }

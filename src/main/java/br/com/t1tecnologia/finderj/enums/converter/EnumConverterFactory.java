@@ -5,7 +5,6 @@
  */
 package br.com.t1tecnologia.finderj.enums.converter;
 
-import br.com.t1tecnologia.finderj.enums.TipoUsuarioEnum;
 import java.util.Map;
 
 /**

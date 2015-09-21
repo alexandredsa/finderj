@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.t1tecnologia.finderj.controller;
 
 import br.com.t1tecnologia.finderj.enums.SessionEnum;
-import br.com.t1tecnologia.finderj.enums.TipoUsuarioEnum;
 import br.com.t1tecnologia.finderj.enums.converter.EnumConverterFactory;
 import br.com.t1tecnologia.finderj.model.Usuario;
 import br.com.t1tecnologia.finderj.repository.UsuarioRepository;
@@ -29,6 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = {"/usuario", "/login"})
 public class UsuarioController {
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView login() {
         return new ModelAndView("/view/usuario/login.html");
@@ -39,14 +36,11 @@ public class UsuarioController {
         return new ModelAndView("/view/usuario/cadastro.html");
     }
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = "/cadastrar")
     public String cadastrar(Usuario u) throws Exception {
         try {
-            if (verificarLoginDisponivel(u.getUsuaLogin())) {
+            if (isLoginDisponivel(u.getUsuaLogin())) {
                 u.setUsuaSenha(ConvertToMd5.CriptografaSenha(u.getUsuaSenha()));
                 u.setUsuaAdmin(false);
                 u.setUsuaAtivo(true);
@@ -76,7 +70,7 @@ public class UsuarioController {
         return new ModelAndView("redirect:/usuario/login");
     }
 
-    private boolean verificarLoginDisponivel(String usuario) {
+    private boolean isLoginDisponivel(String usuario) {
         return usuarioRepository.findByUsuaLogin(usuario) == null;
     }
 

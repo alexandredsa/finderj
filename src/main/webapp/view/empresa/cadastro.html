@@ -8,6 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <link href="resources/css/bootstrap.min.css" rel="stylesheet">
         <link href="resources/css/styles.css" rel="stylesheet">
+        <link href="resources/css/alertify.css" rel="stylesheet">
+        <link href="resources/css/alertify.min.css" rel="stylesheet">
     </head>
     <body>
         <!-- header -->
@@ -58,89 +60,87 @@
                         </div>-->
 
                         <form method="POST" class="form-horizontal formCadastro" id="frmEmpresa"  role="form"  action="empresa/cadastrar">
-                            <input name="empr_url_logo" value="" type="hidden" id="hid_url_logo">
+                            <input name="emprUrlLogo" value="" type="hidden" id="hid_url_logo">
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Nome Fantasia:</label>
                                 <div class="col-lg-8">
 
-                                    <input name="empr_nome" class="form-control" value="" type="text">
+                                    <input name="emprNome" class="form-control" value="" type="text">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Razão Social:</label>
                                 <div class="col-lg-8">
-                                    <input name="empr_razao_social" class="form-control" value="" type="text">
+                                    <input name="emprRazaoSocial" class="form-control" value="" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">CNPJ:</label>
                                 <div class="col-lg-8">
-                                    <input name="empr_cnpj" class="form-control" value="" type="text">
+                                    <input name="emprCnpj" class="form-control" value="" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">CEP:</label>
                                 <div class="col-lg-8">
-                                    <input name="empr_cep" class="form-control" value="" type="text">
+                                    <input name="emprCep" class="form-control" value="" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Bairro:</label>
                                 <div class="col-lg-8">
-                                    <input name="empr_bairro" class="form-control" value="" type="text">
+                                    <input name="emprBairro" class="form-control" value="" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Rua:</label>
                                 <div class="col-lg-5">
-                                    <input name="empr_rua" class="form-control" value="" type="text">
+                                    <input name="emprRua" class="form-control" value="" type="text">
                                 </div>
                                 <label class="col-md-1 control-label">Número:</label>
                                 <div class="col-sm-2">
-                                    <input name="empr_numero_residencia" class="form-control" value="" type="text">
+                                    <input name="emprNumeroResidencia" class="form-control" value="" type="text">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Complemento:</label>
                                 <div class="col-lg-8">
-                                    <input name="empr_complemento_residencia" class="form-control" value="" type="text">
+                                    <input name="emprComplementoResidencia" class="form-control" value="" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Cidade:</label>
                                 <div class="col-lg-5">
-                                    <input name="empr_cidade" class="form-control" value="" type="text">
+                                    <input name="emprCidade" class="form-control" value="" type="text">
                                 </div>
                                 <label class="col-md-1 control-label">Estado:</label>
                                 <div class="col-md-2">
-                                    <select id='emprEstado' name="empr_estado" class="form-control">
-                                     
+                                    <select id='emprEstado' name="emprEstado" class="form-control">
+
                                     </select>
                                 </div>
                             </div>     
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Proprietário:</label>
                                 <div class="col-lg-8">
-                                    <input name="empr_nome_contato" class="form-control" value="" type="text">
+                                    <input name="emprNomeContato" class="form-control" value="" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Telefone:</label>
-                                <div class="col-sm-2">
-                                    <input name="empr_telefone" class="form-control" value="" type="text">
-                                </div>
                                 <div class="col-lg-6">
-                                    <input class="form-control" value="" type="text">
+                                    <input name="emprTelefone" class="form-control" value="" type="text">
                                 </div>
+
                             </div>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Descrição:</label>
                                 <div class="col-lg-8">
-                                    <textarea name="empr_descricao" rows="6" class="form-control" value="" type="text"></textarea>
+                                    <textarea name="emprDescricao" rows="6" class="form-control" value="" type="text"></textarea>
                                 </div>
                             </div>
 
@@ -167,9 +167,18 @@
         <script src="resources/js/bootstrap.min.js"></script>
         <script src="resources/js/scripts.js"></script>
         <script src="resources/js/perfil.js"></script>
+        <script src="resources/js/submit-ajax.js"></script>
+        <script src="resources/js/alertify.js"></script>
+        <script src="resources/js/alertify.min.js"></script>
         <script>
             fillDropdownList('enum_estado', 'emprEstado')
-            
+
+
+            $('form').submit(function () {
+                var inputUrlLogo = $('#hid_url_logo').val($('#logoUrl').val());
+                $('form').append(inputUrlLogo);
+            })
+
         </script>
 
     </body>
