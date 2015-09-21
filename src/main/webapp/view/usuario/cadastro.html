@@ -24,7 +24,7 @@
                             <li><a href="#">My Profile</a></li>
                         </ul>
                     </li>
-                    <li><a href="../login.html"><i class="glyphicon glyphicon-log-in"></i> Login</a></li>
+                    <li><a href="../login"><i class="glyphicon glyphicon-log-in"></i> Login</a></li>
                 </ul>
             </div>
         </div>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <form accept-charset="UTF-8" role="form" class="form-signin" method="POST" action="../usuario/cadastrar">
+                        <form accept-charset="UTF-8" role="form" class="form-signin" method="POST" action="../usuario/cadastrar" onsubmit="return false;">
                             <fieldset>
                                 <label class="panel-login">
                                 </label>
@@ -70,35 +70,13 @@
     <script src="../resources/js/scripts.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $.ajax({
-                type: 'GET',
-                url: $('form').attr('action'),
-                data: 'key=enum_tipo_usuario',
-                success: function (data) {
-                    if (data === 'false') {
-                        alertify.error('Erro.');
-                    } else {
-                        var option = '';
-                        for (var i in data) {
-                            option += '<option value="' + i + '">' + data[i].replace("_", "") + '</option>';
-                        }
-
-                        $('#usuaTipoUsuario').append(option);
-                    }
-
-
-                },
-                error: function (xhr, status) {
-                    console.log(status);
-                }
-            });
-        }
-        )
-
-
+        fillDropdownList('enum_tipo_usuario', 'usuaTipoUsuario')
 
         $('form').submit(function () {
+            if(!validaSenha()){
+                alertify.error('As senhas não coincidem. Poderia digitar novamente?');                
+                return ;
+            }
             $.ajax({
                 type: 'POST',
                 url: $('form').attr('action'),
@@ -108,7 +86,7 @@
                         alertify.error('Erro.');
                     } else {
                         alertify.success('Realizado com sucesso!');
-                        window.location.replace("../login.html");
+                        window.location.replace("../login");
                     }
 
 
@@ -121,6 +99,38 @@
 
             return false;
         });
+
+
+
+        $('#usuaTipoUsuario').change(function () {
+            var img = $('#iconTipoUsuario');
+            if ($('#usuaTipoUsuario option:selected').text().indexOf('Jurídica') > -1) {
+                img.attr('src', '../resources/imagens/icones/company_ic.png');
+            } else if ($('#usuaTipoUsuario option:selected').text().indexOf('Física') > -1) {
+                img.attr('src', '../resources/imagens/icones/worker_ic.png');
+            } else {
+                img.attr('src', '../resources/imagens/icones/blank_ic.jpg');
+            }
+
+        });
+
+
+
+        function validaSenha() {
+            var senha = $('#senha').val();
+            var confirmaSenha = $('#confirma-senha').val();
+
+            if (senha === confirmaSenha) {
+                return true;
+            }
+
+            return false;
+
+        }
+
+
+
+
 
     </script>
 

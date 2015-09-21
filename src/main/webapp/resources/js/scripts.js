@@ -1,23 +1,40 @@
+//
+//$(document).ready(function () {
+//    $(".alert").addClass("in").fadeOut(4500);
+//
+//    /* swap open/close side menu icons */
+//    $('[data-toggle=collapse]').click(function () {
+//        // toggle icon
+//        $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
+//    });
+//});
 
-$(document).ready(function () {
-    $(".alert").addClass("in").fadeOut(4500);
 
-    /* swap open/close side menu icons */
-    $('[data-toggle=collapse]').click(function () {
-        // toggle icon
-        $(this).find("i").toggleClass("glyphicon-chevron-right glyphicon-chevron-down");
-    });
-});
+function fillDropdownList(key, selectId) {
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: $('form').attr('action') + '/options',
+            data: 'key=' + key,
+            success: function (data) {
+                if (data === 'false') {
+                    alertify.error('Erro.');
+                } else {
+                    var option = '';
+                    for (var i in data) {
+                        option += '<option value="' + data[i] + '">' + i + '</option>';
+                    }
+
+                    $('#' + selectId + '').append(option);
+                }
 
 
-$('#usuaTipoUsuario').change(function () {
-    var img = $('#iconTipoUsuario');
-    if ($('#usuaTipoUsuario option:selected').text().indexOf('Jurídica') > -1) {
-        img.attr('src', '../resources/imagens/icones/company_ic.png');
-    } else if ($('#usuaTipoUsuario option:selected').text().indexOf('Física') > -1) {
-        img.attr('src', '../resources/imagens/icones/worker_ic.png');
-    }else{
-        img.attr('src', '../resources/imagens/icones/blank_ic.jpg');        
+            },
+            error: function (xhr, status) {
+                console.log(status);
+            }
+        });
     }
+    );
 
-});
+}

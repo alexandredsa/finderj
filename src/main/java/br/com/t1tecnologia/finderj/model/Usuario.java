@@ -32,8 +32,12 @@ public class Usuario implements Serializable {
     @Column(name = "usua_senha", length = 32, nullable = false)
     private String usuaSenha;
     @Column(name = "usua_admin")
-    @Type(type="boolean")
+    @Type(type = "boolean")
     private boolean usuaAdmin;
+
+    @Column(name = "usua_ativo")
+    @Type(type = "boolean")
+    private boolean usuaAtivo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "usua_tipo_usuario")
@@ -85,6 +89,15 @@ public class Usuario implements Serializable {
         this.usuaSenha = usuaSenha;
     }
 
+    public boolean isUsuaAtivo() {
+        return usuaAtivo;
+    }
+
+    public void setUsuaAtivo(boolean usuaAtivo) {
+        this.usuaAtivo = usuaAtivo;
+    }
+    
+
     public Long getID() {
         return ID;
     }
@@ -92,5 +105,7 @@ public class Usuario implements Serializable {
     public void setID(Long ID) {
         this.ID = ID;
     }
+    
+    
 
 }

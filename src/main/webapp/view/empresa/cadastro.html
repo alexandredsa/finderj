@@ -57,7 +57,7 @@
                            This is an <strong>.alert</strong>. Use this to show important messages to the user.
                         </div>-->
 
-                        <form method="POST" class="form-horizontal formCadastro" id="frmEmpresa"  role="form"  action="/app/auth/cadastrarEmpresa">
+                        <form method="POST" class="form-horizontal formCadastro" id="frmEmpresa"  role="form"  action="empresa/cadastrar">
                             <input name="empr_url_logo" value="" type="hidden" id="hid_url_logo">
 
                             <div class="form-group">
@@ -116,10 +116,8 @@
                                 </div>
                                 <label class="col-md-1 control-label">Estado:</label>
                                 <div class="col-md-2">
-                                    <select name="empr_estado" class="form-control">
-                                        <option value="valor1" selected>SP</option> 
-                                        <option value="valor2" >Valor 2</option>
-                                        <option value="valor3">Valor 3</option>
+                                    <select id='emprEstado' name="empr_estado" class="form-control">
+                                     
                                     </select>
                                 </div>
                             </div>     
@@ -165,10 +163,14 @@
 
         <!-- /.modal -->
         <!-- script references -->
-        <script src="../resources/js/jquery-2.1.4.min.js"></script>
-        <script src="../resources/js/bootstrap.min.js"></script>
-        <script src="../resources/js/scripts.js"></script>
-        <script src="../resources/js/perfil.js"></script>
+        <script src="resources/js/jquery-2.1.4.min.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
+        <script src="resources/js/scripts.js"></script>
+        <script src="resources/js/perfil.js"></script>
+        <script>
+            fillDropdownList('enum_estado', 'emprEstado')
+            
+        </script>
 
     </body>
 </html>

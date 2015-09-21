@@ -24,7 +24,7 @@ public class EmpresaInterceptor extends HandlerInterceptorAdapter {
         
         HttpSession session = request.getSession();
 
-        if (!session.getAttribute(SessionEnum.TIPO_USUARIO.name()).equals(TipoUsuarioEnum.PESSOA_JURIDICA.name())) {
+        if (!session.getAttribute(SessionEnum.TIPO_USUARIO.name()).equals(TipoUsuarioEnum.PESSOA_JURIDICA)) {
             if (!(boolean) session.getAttribute(SessionEnum.ADMIN.name())) {
                 return false;
             }

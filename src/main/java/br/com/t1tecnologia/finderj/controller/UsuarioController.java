@@ -7,10 +7,10 @@ package br.com.t1tecnologia.finderj.controller;
 
 import br.com.t1tecnologia.finderj.enums.SessionEnum;
 import br.com.t1tecnologia.finderj.enums.TipoUsuarioEnum;
+import br.com.t1tecnologia.finderj.enums.converter.EnumConverterFactory;
 import br.com.t1tecnologia.finderj.model.Usuario;
 import br.com.t1tecnologia.finderj.repository.UsuarioRepository;
 import br.com.t1tecnologia.finderj.util.ConvertToMd5;
-import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +49,7 @@ public class UsuarioController {
             if (verificarLoginDisponivel(u.getUsuaLogin())) {
                 u.setUsuaSenha(ConvertToMd5.CriptografaSenha(u.getUsuaSenha()));
                 u.setUsuaAdmin(false);
+                u.setUsuaAtivo(true);
                 usuarioRepository.save(u);
                 return "true";
             }
@@ -60,21 +61,9 @@ public class UsuarioController {
     }
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.GET, value = "/cadastrar")
-    public Map<String, String> getOptions(@RequestParam(value = "key") String key) {
-
-        switch (key) {
-            case "enum_tipo_usuario":
-                return getOptionsTipoUsuario();
-        }
-
-        return null;
-    }
-
-    @ResponseBody
     @RequestMapping(value = "/logar", method = RequestMethod.POST)
     public ModelAndView autenticar(Usuario u, HttpSession session) throws Exception {
-        u = usuarioRepository.findByUsuaLoginAndUsuaSenha(u.getUsuaLogin(), ConvertToMd5.CriptografaSenha(u.getUsuaSenha()));
+        u = usuarioRepository.findByUsuaLoginAndUsuaSenhaAndUsuaAtivoTrue(u.getUsuaLogin(), ConvertToMd5.CriptografaSenha(u.getUsuaSenha()));
 
         if (u != null) {
             session.setAttribute(SessionEnum.USUARIO.name(), u.getUsuaLogin());
@@ -91,13 +80,10 @@ public class UsuarioController {
         return usuarioRepository.findByUsuaLogin(usuario) == null;
     }
 
-    private Map<String, String> getOptionsTipoUsuario() {
-        Map<String, String> mapUsuario = new HashMap<>();
-        for (TipoUsuarioEnum tipoUsuario : TipoUsuarioEnum.values()) {
-            mapUsuario.put(tipoUsuario.name(), tipoUsuario.getDescricao());
-        }
-
-        return mapUsuario;
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.GET, value = "/cadastrar/options")
+    public Map<String, ?> getOptions(@RequestParam(value = "key") String key) {
+        return EnumConverterFactory.getEnumOptions(key);
     }
 
 }
