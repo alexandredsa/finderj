@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <meta charset="utf-8">
-        <title>JobFinder - Cadastro de Empresa</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <title>JobFinder - Editar Dados de Empresa</title>
         <meta name="generator" content="Bootply" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-        <link href="resources/css/styles.css" rel="stylesheet">
-        <link href="resources/css/alertify.css" rel="stylesheet">
-        <link href="resources/css/alertify.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="resources/css/styles.css" rel="stylesheet"/>
+        <link href="resources/css/alertify.css" rel="stylesheet"/>
+        <link href="resources/css/alertify.min.css" rel="stylesheet"/>
     </head>
     <body>
         <!-- header -->
@@ -31,7 +30,7 @@
                                 <li><a href="#">My Profile</a></li>
                             </ul>
                         </li>
-                        <li><a href="#"><i class="glyphicon glyphicon-user"></i> Login</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-user"></i> <i th:text="${nomeUsuario}"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -41,14 +40,14 @@
         <!-- Main -->
         <div class="container-fluid">
             <div class="container">
-                <h1 class="page-header">Cadastro de Empresa</h1>
+                <h1 class="page-header">Editar Dados de Empresa</h1>
                 <div class="row">
                     <!-- left column -->
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="text-center">
-                            <img src="http://static3.viadeo-static.com/v_img209425/companyprofile/pictos/avatar_company_200x200.png" class="img-thumbnail" alt="avatar">
+                            <img src="http://static3.viadeo-static.com/v_img209425/companyprofile/pictos/avatar_company_200x200.png" class="img-thumbnail" alt="avatar"/>
                             <h6>Alterar logo da empresa...</h6>
-                            <input id="logoUrl" type="file" class="text-center center-block well well-sm">
+                            <input id="logoUrl" type="file" class="text-center center-block well well-sm"/>
                         </div>
                     </div>
                     <!-- edit form column -->
@@ -60,61 +59,61 @@
                         </div>-->
 
                         <form method="POST" class="form-horizontal formCadastro" id="frmEmpresa"  role="form"  action="empresa/cadastrar">
-                            <input name="emprUrlLogo" value="" type="hidden" id="hid_url_logo">
+                            <input name="emprUrlLogo" value="" type="hidden" id="hid_url_logo"/>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Nome Fantasia:</label>
                                 <div class="col-lg-8">
 
-                                    <input name="emprNome" class="form-control" value="" type="text">
+                                    <input name="emprNome" class="form-control" value="" type="text"/>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Razão Social:</label>
                                 <div class="col-lg-8">
-                                    <input name="emprRazaoSocial" class="form-control" value="" type="text">
+                                    <input name="emprRazaoSocial" class="form-control" value="" type="text"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">CNPJ:</label>
                                 <div class="col-lg-8">
-                                    <input name="emprCnpj" class="form-control" value="" type="text">
+                                    <input name="emprCnpj" class="form-control" value="" type="text"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">CEP:</label>
                                 <div class="col-lg-8">
-                                    <input name="emprCep" class="form-control" value="" type="text">
+                                    <input name="emprCep" class="form-control" value="" type="text"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Bairro:</label>
                                 <div class="col-lg-8">
-                                    <input name="emprBairro" class="form-control" value="" type="text">
+                                    <input name="emprBairro" class="form-control" value="" type="text"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Rua:</label>
                                 <div class="col-lg-5">
-                                    <input name="emprRua" class="form-control" value="" type="text">
+                                    <input name="emprRua" class="form-control" value="" type="text"/>
                                 </div>
                                 <label class="col-md-1 control-label">Número:</label>
                                 <div class="col-sm-2">
-                                    <input name="emprNumeroResidencia" class="form-control" value="" type="text">
+                                    <input name="emprNumeroResidencia" class="form-control" value="" type="text"/>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Complemento:</label>
                                 <div class="col-lg-8">
-                                    <input name="emprComplementoResidencia" class="form-control" value="" type="text">
+                                    <input name="emprComplementoResidencia" class="form-control" value="" type="text"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Cidade:</label>
                                 <div class="col-lg-5">
-                                    <input name="emprCidade" class="form-control" value="" type="text">
+                                    <input name="emprCidade" class="form-control" value="" type="text"/>
                                 </div>
                                 <label class="col-md-1 control-label">Estado:</label>
                                 <div class="col-md-2">
@@ -126,13 +125,13 @@
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Proprietário:</label>
                                 <div class="col-lg-8">
-                                    <input name="emprNomeContato" class="form-control" value="" type="text">
+                                    <input name="emprNomeContato" class="form-control" value="" type="text"/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-lg-3 control-label">Telefone:</label>
                                 <div class="col-lg-6">
-                                    <input name="emprTelefone" class="form-control" value="" type="text">
+                                    <input name="emprTelefone" class="form-control" value="" type="text"/>
                                 </div>
 
                             </div>
@@ -148,9 +147,9 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label"></label>
                                 <div class="col-md-8">
-                                    <input class="btn btn-primary" value="Salvar" type="submit">
+                                    <input class="btn btn-primary" value="Salvar" type="submit"/>
                                     <span></span>
-                                    <input class="btn btn-default" value="Cancelar" type="reset">
+                                    <input class="btn btn-default" value="Cancelar" type="reset"/>
                                 </div>
                             </div>
                         </form>

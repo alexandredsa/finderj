@@ -19,6 +19,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  */
 public class EmpresaInterceptor extends HandlerInterceptorAdapter {
 
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse hsr1, Object o) throws Exception {
         ConsoleLog.write(request.getRequestURI(), this.getClass(), "preHandle");
         

@@ -28,12 +28,12 @@ public class UsuarioController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView login() {
-        return new ModelAndView("/view/usuario/login.html");
+        return new ModelAndView("usuario/login");
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/cadastro")
     public ModelAndView cadastro() {
-        return new ModelAndView("/view/usuario/cadastro.html");
+        return new ModelAndView("usuario/cadastro");
     }
 
     @ResponseBody
@@ -67,7 +67,7 @@ public class UsuarioController {
             return new ModelAndView("redirect:/empresa");
         }
 
-        return new ModelAndView("redirect:/usuario/login");
+        return new ModelAndView("redirect:/usuario");
     }
 
     private boolean isLoginDisponivel(String usuario) {
