@@ -13,12 +13,12 @@ import org.apache.commons.lang3.EnumUtils;
  *
  * @author alexandre
  */
-public class EstadoConverter {
+public class EstadoConverter implements IEnumConverter{
 
     public EstadoConverter() {
     }
 
-    
+    @Override
     public Map<String, ?> getOptions() {
         return EnumUtils.getEnumMap(EstadoEnum.class);
     }

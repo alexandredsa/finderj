@@ -13,11 +13,12 @@ import java.util.Map;
  *
  * @author alexandre
  */
-public class TipoUsuarioConverter {
+public class TipoUsuarioConverter implements IEnumConverter {
 
     public TipoUsuarioConverter() {
     }
 
+    @Override
     public Map<String, String> getOptions() {
         Map<String, String> mapUsuario = new HashMap<>();
         for (TipoUsuarioEnum tipoUsuario : TipoUsuarioEnum.values()) {

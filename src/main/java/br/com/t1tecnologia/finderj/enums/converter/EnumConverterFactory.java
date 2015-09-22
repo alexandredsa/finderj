@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class EnumConverterFactory {
 
+    @Deprecated
     public static Map<String, ?> getEnumOptions(String enumKey) {
        if(enumKey.equals("enum_tipo_usuario")){
           return new TipoUsuarioConverter().getOptions();
@@ -23,6 +24,12 @@ public class EnumConverterFactory {
        }
        
        return null;
+    }
+    
+    
+    public static Map<String, ?> getEnumOptions(IEnumConverter enumConverter) {
+        
+       return enumConverter.getOptions();
     }
 
 }

@@ -2,6 +2,7 @@ package br.com.t1tecnologia.finderj.controller;
 
 import br.com.t1tecnologia.finderj.enums.SessionEnum;
 import br.com.t1tecnologia.finderj.enums.converter.EnumConverterFactory;
+import br.com.t1tecnologia.finderj.enums.converter.TipoUsuarioConverter;
 import br.com.t1tecnologia.finderj.model.Usuario;
 import br.com.t1tecnologia.finderj.repository.UsuarioRepository;
 import br.com.t1tecnologia.finderj.util.ConvertToMd5;
@@ -33,7 +34,9 @@ public class UsuarioController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/cadastro")
     public ModelAndView cadastro() {
-        return new ModelAndView("usuario/cadastro");
+        ModelAndView mvCadastro = new ModelAndView("usuario/cadastro");
+        mvCadastro.addObject("tipoUsuarios", EnumConverterFactory.getEnumOptions(new TipoUsuarioConverter()));
+        return mvCadastro;
     }
 
     @ResponseBody
