@@ -3,6 +3,7 @@ $('form').submit(function(){
         type: 'POST',
         url: $('form').attr('action'),
         data: $('form').serialize(),
+        contentType: $('form').attr('enctype'),
         success: function (data) {
             if(data === 'false'){
                 alertify.error('Erro.');

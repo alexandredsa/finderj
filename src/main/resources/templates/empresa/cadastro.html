@@ -1,182 +1,219 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-        <title>JobFinder - Cadastro de Empresa</title>
-        <meta name="generator" content="Bootply" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-        <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />    
-        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />    
-        <link rel="stylesheet" th:href="@{/css/alertify.css}" />    
-        <link rel="stylesheet" th:href="@{/css/alertify.min.css}" />  
-        <link rel="stylesheet" th:href="@{/css/styles.css}" /> 
-    </head>
-    <body>
-        <!-- header -->
-        <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">JobFinder</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <!--<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> RC_Empreiteira <span class="caret"></span></a>-->
-                            <ul id="g-account-menu" class="dropdown-menu" role="menu">
-                                <li><a href="#">My Profile</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#"><i class="glyphicon glyphicon-user"></i> <i th:text="${session.USUARIO}"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- /container -->
-        </div>
-        <!-- /Header -->
-        <!-- Main -->
-        <div class="container-fluid">
-            <div class="container">
-                <h1 class="page-header">Cadastro de Empresa</h1>
-                <div class="row">
-                    <!-- left column -->
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="text-center">
-                            <img src="http://static3.viadeo-static.com/v_img209425/companyprofile/pictos/avatar_company_200x200.png" class="img-thumbnail" alt="avatar"/>
-                            <h6>Alterar logo da empresa...</h6>
-                            <input id="logoUrl" name="fileLogo" type="file" class="text-center center-block well well-sm"/>
-                        </div>
-                    </div>
-                    <!-- edit form column -->
-                    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-                        <!--<div class="alert alert-info alert-dismissable">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>JobFinder - Cadastro de Empresa</title>
+<meta name="generator" content="Bootply" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/alertify.css}" />
+<link rel="stylesheet" th:href="@{/css/alertify.min.css}" />
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+	<!-- header -->
+	<div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">JobFinder</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<!--<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> RC_Empreiteira <span class="caret"></span></a>-->
+						<ul id="g-account-menu" class="dropdown-menu" role="menu">
+							<li><a href="#">My Profile</a></li>
+						</ul>
+					</li>
+					<li><a href="#"><i class="glyphicon glyphicon-user"></i> <i
+							th:text="${session.USUARIO}"></i></a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /Header -->
+	<!-- Main -->
+	<div class="container-fluid">
+		<div class="container">
+			<h1 class="page-header">Cadastro de Empresa</h1>
+			<div class="row">
+				<!-- left column -->
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<div class="text-center">
+						<img
+							src="http://static3.viadeo-static.com/v_img209425/companyprofile/pictos/avatar_company_200x200.png"
+							class="img-thumbnail" alt="avatar" />
+						<h6>Alterar logo da empresa...</h6>
+						<input id="emprUrlLogo" name="urlLogo" type="file"
+							class="text-center center-block well well-sm" />
+					</div>
+				</div>
+				<!-- edit form column -->
+				<div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+					<!--<div class="alert alert-info alert-dismissable">
                            <a class="panel-close close" data-dismiss="alert">×</a> 
                            <i class="fa fa-coffee"></i>
                            This is an <strong>.alert</strong>. Use this to show important messages to the user.
                         </div>-->
 
-                        <form method="POST" enctype="multipart/form-data" class="form-horizontal formCadastro" id="frmEmpresa"  role="form"  action="empresa/cadastrar">
-                            <!--<input name="emprUrlLogo" value="" type="hidden" id="hid_url_logo"/>-->
+					<form method="POST" enctype="multipart/form-data"
+						class="form-horizontal formCadastro" id="frmEmpresa" role="form"
+						action="empresa/cadastrar">
+						<input type="file" style="display: none" name="urlLogo"
+							id="urlLogo" />
 
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Nome Fantasia:</label>
-                                <div class="col-lg-8">
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Nome Fantasia:</label>
+							<div class="col-lg-8">
 
-                                    <input name="emprNome" class="form-control" value="" type="text"/>
-                                </div>
-                            </div>
+								<input name="emprNome" class="form-control" value="" type="text" />
+							</div>
+						</div>
 
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Razão Social:</label>
-                                <div class="col-lg-8">
-                                    <input name="emprRazaoSocial" class="form-control" value="" type="text"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">CNPJ:</label>
-                                <div class="col-lg-8">
-                                    <input name="emprCnpj" class="form-control" value="" type="text"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">CEP:</label>
-                                <div class="col-lg-8">
-                                    <input name="emprCep" class="form-control" value="" type="text"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Bairro:</label>
-                                <div class="col-lg-8">
-                                    <input name="emprBairro" class="form-control" value="" type="text"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Rua:</label>
-                                <div class="col-lg-5">
-                                    <input name="emprRua" class="form-control" value="" type="text"/>
-                                </div>
-                                <label class="col-md-1 control-label">Número:</label>
-                                <div class="col-sm-2">
-                                    <input name="emprNumeroResidencia" class="form-control" value="" type="text"/>
-                                </div>
-                            </div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Razão Social:</label>
+							<div class="col-lg-8">
+								<input name="emprRazaoSocial" class="form-control" value=""
+									type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">CNPJ:</label>
+							<div class="col-lg-8">
+								<input name="emprCnpj" class="form-control" value="" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">CEP:</label>
+							<div class="col-lg-8">
+								<input name="emprCep" class="form-control" value="" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Bairro:</label>
+							<div class="col-lg-8">
+								<input name="emprBairro" class="form-control" value=""
+									type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Rua:</label>
+							<div class="col-lg-5">
+								<input name="emprRua" class="form-control" value="" type="text" />
+							</div>
+							<label class="col-md-1 control-label">Número:</label>
+							<div class="col-sm-2">
+								<input name="emprNumeroResidencia" class="form-control" value=""
+									type="text" />
+							</div>
+						</div>
 
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Complemento:</label>
-                                <div class="col-lg-8">
-                                    <input name="emprComplementoResidencia" class="form-control" value="" type="text"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Cidade:</label>
-                                <div class="col-lg-5">
-                                    <input name="emprCidade" class="form-control" value="" type="text"/>
-                                </div>
-                                <label class="col-md-1 control-label">Estado:</label>
-                                <div class="col-md-2">
-                                    <select id='emprEstado' name="emprEstado" class="form-control">
-                                        <option th:each="estado : ${estados}"
-                                                th:value="${estado.value}"
-                                                th:text="${estado.key}"></option>
-                                    </select>
-                                </div>
-                            </div>     
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Proprietário:</label>
-                                <div class="col-lg-8">
-                                    <input name="emprNomeContato" class="form-control" value="" type="text"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Telefone:</label>
-                                <div class="col-lg-6">
-                                    <input name="emprTelefone" class="form-control" value="" type="text"/>
-                                </div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Complemento:</label>
+							<div class="col-lg-8">
+								<input name="emprComplementoResidencia" class="form-control"
+									value="" type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Cidade:</label>
+							<div class="col-lg-5">
+								<input name="emprCidade" class="form-control" value=""
+									type="text" />
+							</div>
+							<label class="col-md-1 control-label">Estado:</label>
+							<div class="col-md-2">
+								<select id='emprEstado' name="emprEstado" class="form-control">
+									<option th:each="estado : ${estados}"
+										th:value="${estado.value}" th:text="${estado.key}"></option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Proprietário:</label>
+							<div class="col-lg-8">
+								<input name="emprNomeContato" class="form-control" value=""
+									type="text" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Telefone:</label>
+							<div class="col-lg-6">
+								<input name="emprTelefone" class="form-control" value=""
+									type="text" />
+							</div>
 
-                            </div>
+						</div>
 
-                            <div class="form-group">
-                                <label class="col-lg-3 control-label">Descrição:</label>
-                                <div class="col-lg-8">
-                                    <textarea name="emprDescricao" rows="6" class="form-control" value="" type="text"></textarea>
-                                </div>
-                            </div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Descrição:</label>
+							<div class="col-lg-8">
+								<textarea name="emprDescricao" rows="6" class="form-control"
+									value="" type="text"></textarea>
+							</div>
+						</div>
 
 
-                            <div class="form-group">
-                                <label class="col-md-3 control-label"></label>
-                                <div class="col-md-8">
-                                    <input class="btn btn-primary" value="Salvar" type="submit"/>
-                                    <span></span>
-                                    <input class="btn btn-default" value="Cancelar" type="reset"/>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /Main -->
-        <footer class="text-center"></footer>
+						<div class="form-group">
+							<label class="col-md-3 control-label"></label>
+							<div class="col-md-8">
+								<input class="btn btn-primary" value="Salvar" type="submit" /> <span></span>
+								<input class="btn btn-default" value="Cancelar" type="reset" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Main -->
+	<footer class="text-center"></footer>
 
-        <!-- /.modal -->
-        <!-- script references -->
-        <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
-        <script th:src="@{/js/bootstrap.min.js}"></script>
-        <script th:src="@{/js/alertify.js}"></script>
-        <script th:src="@{/js/alertify.min.js}"></script>
+	<!-- /.modal -->
+	<!-- script references -->
+	<script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/alertify.js}"></script>
+	<script th:src="@{/js/alertify.min.js}"></script>
 
-        <script>
+	<script>
+		$('form').submit(
+				function() {
+					$('#urlLogo').replaceWith(
+							$('#emprUrlLogo').attr('id', 'urlLogo').hide());
+					submitForm();
+				})
 
-            $('form').submit(function () {
-                $('form').append($('#logoUrl').clone().hide());
-            })
+		function submitForm() {
 
-        </script>
+			$.ajax({
+				type : 'POST',
+				url : $('form').attr('action'),
+				data : $('form').serialize(),
+				contentType : $('form').attr('enctype'),
+				success : function(data) {
+					if (data === 'false') {
+						alertify.error('Erro.');
+					} else {
+						alertify.success('Realizado com sucesso!')
+					}
 
-    </body>
+				},
+				error : function(xhr, status) {
+					console.log(status);
+				}
+			});
+
+		}
+	</script>
+
+</body>
 </html>

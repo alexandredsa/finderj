@@ -9,12 +9,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -60,7 +64,7 @@ public class Empresa implements Serializable {
     @JoinColumn(name = "empr_vaga_id")
     private List<Vaga> emprVaga = new ArrayList<>();
     @OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "empr_usua_id")
+    @JoinColumn(name = "empr_usua_id")    
     private Usuario emprUsuario;
 
     public Long getID() {
