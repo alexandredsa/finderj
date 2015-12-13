@@ -50,6 +50,14 @@
             <version>3.0</version>
         </dependency>
 
+
+        <!-- Google Drive dependencies -->
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-drive</artifactId>
+            <version>v2-rev65-1.14.1-beta</version>
+        </dependency>
+
        
     </dependencies>
     

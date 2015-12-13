@@ -1,11 +1,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
-    <link href="../resources/css/bootstrap.css" rel="stylesheet"/>
-    <link href="../resources/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../resources/css/alertify.css" rel="stylesheet"/>
-    <link href="../resources/css/alertify.min.css" rel="stylesheet"/>
-    <link href="../resources/css/login.css" rel="stylesheet"/>
-    <link href="../resources/css/styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />    
+    <link rel="stylesheet" th:href="@{/css/login.css}" />    
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />    
+    <link rel="stylesheet" th:href="@{/css/alertify.css}" />    
+    <link rel="stylesheet" th:href="@{/css/alertify.min.css}" />  
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />    
+
     <body>
         <div id="top-nav" class="navbar navbar-inverse navbar-static-top">
             <div class="container-fluid">
@@ -37,7 +38,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">                                
                             <div class="row-fluid user-row">
-                                <img id="iconTipoUsuario" style="height: 150px; margin-left: auto; margin-right: auto;display: block" src="../resources/imagens/icones/blank_ic.jpg" class="img-responsive" alt="Console Admin"/>
+                                <img id="iconTipoUsuario" style="height: 150px; margin-left: auto; margin-right: auto;display: block" th:src="@{/imagens/icones/blank_ic.jpg}" class="img-responsive" alt="Console Admin"/>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -51,7 +52,7 @@
 
                                     <input class="form-control" id="confirma-senha" name="confirmarUsuaSenha" placeholder="Confirmar Senha"  type="password" />
 
-                                    <select id="usuaTipoUsuario" class="form-control" th:field="*{tipoUsuarios}"  name="usuaTipoUsuario">
+                                    <select name="usuaTipoUsuario" id="usuaTipoUsuario" class="form-control">
                                         <option value="">Tipo de Usuário</option>
                                         <option th:each="tipoUsuario : ${tipoUsuarios}"
                                                 th:value="${tipoUsuario.value}"
@@ -67,69 +68,69 @@
             </div>
         </div>
 
-        <script src="../resources/js/alertify.js"></script>
-        <script src="../resources/js/alertify.min.js"></script>
-        <script src="../resources/js/jquery-2.1.4.min.js"></script>
-        <script src="../resources/js/bootstrap.min.js"></script>
+        <script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/alertify.js}"></script>
+        <script th:src="@{/js/alertify.min.js}"></script>
 
         <script type="text/javascript">
-                                //fillDropdownList('enum_tipo_usuario', 'usuaTipoUsuario');
+            //fillDropdownList('enum_tipo_usuario', 'usuaTipoUsuario');
 
-                                $('form').submit(function () {
-                                    if (!validaSenha()) {
-                                        alertify.error('As senhas não coincidem. Poderia digitar novamente?');
-                                        return;
-                                    }
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: $('form').attr('action'),
-                                        data: $('form').serialize(),
-                                        success: function (data) {
-                                            if (data === 'false') {
-                                                alertify.error('Erro.');
-                                            } else {
-                                                alertify.success('Realizado com sucesso!');
-                                                window.location.replace("../login");
-                                            }
-
-
-                                        },
-                                        error: function (xhr, status) {
-                                            console.log(status);
-                                        }
-                                    });
+            $('form').submit(function () {
+                if (!validaSenha()) {
+                    alertify.error('As senhas não coincidem. Poderia digitar novamente?');
+                    return;
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: $('form').attr('action'),
+                    data: $('form').serialize(),
+                    success: function (data) {
+                        if (data === 'false') {
+                            alertify.error('Erro.');
+                        } else {
+                            alertify.success('Realizado com sucesso!');
+                            window.location.replace("../login");
+                        }
 
 
-                                    return false;
-                                });
+                    },
+                    error: function (xhr, status) {
+                        console.log(status);
+                    }
+                });
 
 
-
-                                $('#usuaTipoUsuario').change(function () {
-                                    var img = $('#iconTipoUsuario');
-                                    if ($('#usuaTipoUsuario option:selected').text().indexOf('Jurídica') > -1) {
-                                        img.attr('src', '../resources/imagens/icones/company_ic.png');
-                                    } else if ($('#usuaTipoUsuario option:selected').text().indexOf('Física') > -1) {
-                                        img.attr('src', '../resources/imagens/icones/worker_ic.png');
-                                    } else {
-                                        img.attr('src', '../resources/imagens/icones/blank_ic.jpg');
-                                    }
-
-                                });
+                return false;
+            });
 
 
 
-                                function validaSenha() {
-                                    var senha = $('#senha').val();
-                                    var confirmaSenha = $('#confirma-senha').val();
+            $('#usuaTipoUsuario').change(function () {
+                var img = $('#iconTipoUsuario');
+                if ($('#usuaTipoUsuario option:selected').text().indexOf('Jurídica') > -1) {
+                    img.attr('src', '../resources/imagens/icones/company_ic.png');
+                } else if ($('#usuaTipoUsuario option:selected').text().indexOf('Física') > -1) {
+                    img.attr('src', '../resources/imagens/icones/worker_ic.png');
+                } else {
+                    img.attr('src', '../resources/imagens/icones/blank_ic.jpg');
+                }
 
-                                    if (senha === confirmaSenha) {
-                                        return true;
-                                    }
+            });
 
-                                    return false;
 
-                                }
+
+            function validaSenha() {
+                var senha = $('#senha').val();
+                var confirmaSenha = $('#confirma-senha').val();
+
+                if (senha === confirmaSenha) {
+                    return true;
+                }
+
+                return false;
+
+            }
 
 
 

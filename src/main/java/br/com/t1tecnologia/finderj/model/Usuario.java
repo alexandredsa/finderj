@@ -41,7 +41,7 @@ public class Usuario implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "usua_tipo_usuario")
-    private TipoUsuarioEnum tipoUsuario;
+    private TipoUsuarioEnum usuaTipoUsuario;
 
     public Usuario() {
     }
@@ -54,16 +54,18 @@ public class Usuario implements Serializable {
     public Usuario(String usuaLogin, String usuaSenha, TipoUsuarioEnum tipoUsuarioEnum) {
         this.usuaLogin = usuaLogin;
         this.usuaSenha = usuaSenha;
-        this.tipoUsuario = tipoUsuarioEnum;
+        this.usuaTipoUsuario = tipoUsuarioEnum;
     }
 
-    public TipoUsuarioEnum getTipoUsuario() {
-        return tipoUsuario;
+    public TipoUsuarioEnum getUsuaTipoUsuario() {
+        return usuaTipoUsuario;
     }
 
-    public void setTipoUsuario(TipoUsuarioEnum tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setUsuaTipoUsuario(TipoUsuarioEnum usuaTipoUsuario) {
+        this.usuaTipoUsuario = usuaTipoUsuario;
     }
+
+   
 
     public String getUsuaLogin() {
         return usuaLogin;

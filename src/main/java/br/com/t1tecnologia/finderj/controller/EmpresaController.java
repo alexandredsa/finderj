@@ -1,14 +1,14 @@
 package br.com.t1tecnologia.finderj.controller;
 
-import br.com.t1tecnologia.finderj.enums.converter.EnumConverterFactory;
+import br.com.t1tecnologia.finderj.enums.converter.EstadoConverter;
 import br.com.t1tecnologia.finderj.model.Empresa;
 import br.com.t1tecnologia.finderj.model.Usuario;
 import br.com.t1tecnologia.finderj.repository.EmpresaRepository;
 import br.com.t1tecnologia.finderj.service.SessionService;
 import br.com.t1tecnologia.finderj.util.ConsoleLog;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,20 +34,24 @@ public class EmpresaController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView home(Model model) {
+        Empresa empresa = sessionService.getEmpresaUsuarioSession();
+
         ModelAndView MvHome = new ModelAndView("empresa/editar");
-        MvHome.addObject("nomeUsuario", sessionService.getUsuarioName());
-        if (sessionService.getEmpresaUsuarioSession() != null) {
+//        MvHome.addObject("nomeUsuario", sessionService.getUsuarioName());
+        MvHome.addObject("estados", new EstadoConverter().getOptions());
+        if (empresa != null) {
+            MvHome.addObject("empresa", empresa);
             MvHome.setViewName("empresa/editar");
         } else {
             MvHome.setViewName("empresa/cadastro");
         }
-        
+
         return MvHome;
     }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = {"/cadastrar"})
-    public String salvar(Empresa empresa, HttpServletRequest request, @RequestParam("emprNome") String nomeEmpresa) {
+    public String salvar(@Valid Empresa empresa, HttpServletRequest request, @RequestParam("fileLogo") Part emprUrlLogo) {
         Usuario usuario = sessionService.getUsuarioSession();
         empresa.setEmprUsuario(usuario);
 
@@ -78,13 +82,6 @@ public class EmpresaController {
         }
 
         return "false";
-    }
-
-    @ResponseBody
-    @RequestMapping(method = RequestMethod.GET, value = {"/cadastrar/options", "/editar/options"})
-    public Map<String, ?> getOptions(@RequestParam(value = "key") String key) {
-        return EnumConverterFactory.getEnumOptions(key);
-
     }
 
     private boolean isEmpresaNomeDisponivel(String nomeEmpresa) {
