@@ -64,7 +64,7 @@ public class UsuarioController {
             session.setAttribute(SessionEnum.TIPO_USUARIO.name(), u.getUsuaTipoUsuario());
             session.setAttribute(SessionEnum.ADMIN.name(), u.isUsuaAdmin());
 
-            return new ModelAndView("redirect:/empresa");
+            return new ModelAndView("redirect:/vagas");
         }
 
         return new ModelAndView("redirect:/usuario");

@@ -22,6 +22,7 @@ public class EmpresaInterceptor extends HandlerInterceptorAdapter {
 
         if (!session.getAttribute(SessionEnum.TIPO_USUARIO.name()).equals(TipoUsuarioEnum.PESSOA_JURIDICA)) {
             if (!(boolean) session.getAttribute(SessionEnum.ADMIN.name())) {
+            	hsr1.sendRedirect("/login");
                 return false;
             }
         }

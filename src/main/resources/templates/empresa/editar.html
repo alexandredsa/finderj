@@ -25,6 +25,15 @@
 				<a class="navbar-brand" href="#">JobFinder</a>
 			</div>
 			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Vaga <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Nova</a></li>
+							<li><a href="#">Publicadas</a></li>
+						</ul></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<!--<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> RC_Empreiteira <span class="caret"></span></a>-->
@@ -48,8 +57,7 @@
 				<!-- left column -->
 				<div class="col-md-4 col-sm-6 col-xs-12">
 					<div class="text-center">
-						<img
-							th:src="${empresa.emprUrlLogo}" 
+						<img th:src="${empresa.emprUrlLogo}"
 							class="img-thumbnail imgEmpresa" alt="avatar" />
 						<h6>Alterar logo da empresa...</h6>
 						<input id="emprUrlLogo" name="urlLogo" type="file"

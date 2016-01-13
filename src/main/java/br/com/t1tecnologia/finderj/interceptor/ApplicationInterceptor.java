@@ -16,10 +16,13 @@ public class ApplicationInterceptor extends HandlerInterceptorAdapter {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse hsr1, Object o) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         ConsoleLog.write(request.getRequestURI(), this.getClass(), "preHandle");
         
-        return request.getSession().getAttribute(SessionEnum.USUARIO.name()) != null;
+        if(request.getSession().getAttribute(SessionEnum.USUARIO.name()) == null)
+        	response.sendRedirect("login");
+        
+        return true;
 
     }
 
