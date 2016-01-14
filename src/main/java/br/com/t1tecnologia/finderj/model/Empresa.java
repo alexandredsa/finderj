@@ -186,6 +186,13 @@ public class Empresa implements Serializable {
     public void setEmprTelefone(String emprTelefone) {
         this.emprTelefone = emprTelefone;
     }
+    
+    public void addVaga(Vaga vaga){
+    	if(this.emprVaga == null)
+    		this.emprVaga = new ArrayList<>();
+    	
+    	this.emprVaga.add(vaga);
+    }
 
     public List<Vaga> getEmprVaga() {
         return emprVaga;

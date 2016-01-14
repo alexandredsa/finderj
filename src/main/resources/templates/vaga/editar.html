@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-<title>JobFinder - Vagas</title>
+<title>JobFinder - Cadastro de Vaga</title>
 <meta name="generator" content="Bootply" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -25,15 +25,6 @@
 				<a class="navbar-brand" href="#">JobFinder</a>
 			</div>
 			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Vaga <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="vagas/nova">Nova</a></li>
-							<li class="active"><a href="">Publicadas</a></li>
-						</ul></li>
-				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<!--<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i> RC_Empreiteira <span class="caret"></span></a>-->
@@ -46,36 +37,71 @@
 				</ul>
 			</div>
 		</div>
+		<!-- /container -->
 	</div>
+	<!-- /Header -->
+	<!-- Main -->
 	<div class="container-fluid">
 		<div class="container">
-			<h2>Vagas Publicadas</h2>
-			<div class="row" th:each="vaga : ${vagas}">
-				<div class="thumbnail" th:switch="${session.ADMIN}">
-					<img th:src="${logo}" class="thumbnail pull-left"
-						style="width: 260px; height: 150px; margin-right: 10px" />
+			<h1 class="page-header">Editar Vaga</h1>
+			<div class="row">
+				<div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+					<form method="POST" class="form-horizontal formCadastro"
+						id="frmVaga" role="form" th:action="'../cadastrar/' + ${vaga.ID}">
 
-					<div class="caption">
-						<a th:if="true" th:href="'vagas/editar/' + ${vaga.ID}"
-							class="btn btn-primary icon  pull-right">Editar</a> <a
-							th:if="false" href="#" class="btn btn-primary icon  pull-right">Inscrever</a>
-						<h3>
-							<a th:text="${vaga.vagaNome}"></a>
-						</h3>
-						<b th:text="'Empresa: ' + ${emprNome}"></b> <br></br>
-						<b th:text="'Local de Trabalho: ' + ${localTrabalho}"></b>
-						<!-- 						<label>A inscrição será encerrada em: <b th:text="${#dates.format(vaga.vagaDtTermino, 'dd/MM/yyyy')}"></b></label> -->
-						<br></br> <small th:text="${vaga.vagaDescricao}"></small>
-						<h4 th:text="'R$' + ${vaga.vagaSalario}"></h4>
-					</div>
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Título: </label>
+							<div class="col-lg-8">
+
+								<input name="vagaNome" class="form-control" th:value="${vaga.vagaNome}" type="text" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Salário:</label>
+							<div class="col-lg-8">
+								<input name="vagaSalario" class="form-control" th:value="${vaga.vagaSalario}"
+									type="text" />
+							</div>
+						</div>
+
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="col-lg-3 control-label">Cargo:</label> -->
+<!-- 							<div class="col-lg-8"> -->
+<!-- 								<input name="vagaCargo" class="form-control" value="" -->
+<!-- 									type="text" /> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Descrição:</label>
+							<div class="col-lg-8">
+								<textarea name="vagaDescricao" rows="6" class="form-control"
+									th:text="${vaga.vagaDescricao}" type="text"></textarea>
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label class="col-md-3 control-label"></label>
+							<div class="col-md-8">
+								<input class="btn btn-primary" value="Salvar" type="submit" />
+								<span></span> <a th:if="true" th:href="'../../vagas/excluir/' + ${vaga.ID}"
+							class="btn btn-danger">Excluir</a>
+							</div>
+						</div>
+					</form>
 				</div>
-
-
-
 			</div>
 		</div>
 	</div>
+	<!-- /Main -->
 	<footer class="text-center"></footer>
+
+	<!-- /.modal -->
+	<!-- script references -->
 	<script th:src="@{/js/jquery-2.1.4.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/alertify.js}"></script>

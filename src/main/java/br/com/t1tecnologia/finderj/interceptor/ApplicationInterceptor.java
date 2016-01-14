@@ -20,7 +20,7 @@ public class ApplicationInterceptor extends HandlerInterceptorAdapter {
         ConsoleLog.write(request.getRequestURI(), this.getClass(), "preHandle");
         
         if(request.getSession().getAttribute(SessionEnum.USUARIO.name()) == null)
-        	response.sendRedirect("login");
+        	response.sendRedirect("/finderj/login");
         
         return true;
 
