@@ -1,33 +1,36 @@
 package br.com.t1tecnologia.finderj.model;
 
-import br.com.t1tecnologia.finderj.enums.EstadoEnum;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.hibernate.validator.constraints.Length;
+
+import br.com.t1tecnologia.finderj.enums.EstadoEnum;
 
 /**
  *
  * @author alexandre
  */
-@Entity
+@Entity 
 public class Empresa implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = -2103148598887048661L;
+	
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "empr_id")
     private Long ID;
@@ -58,7 +61,7 @@ public class Empresa implements Serializable {
     private String emprNomeContato;
     @Column(name = "empr_url_logo", length = 90)
     private String emprUrlLogo;
-    @Column(name = "empr_telefone", length = 11, nullable = false)
+    @Column(name = "empr_telefone", length = 15, nullable = false)
     private String emprTelefone;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "empr_vaga_id")

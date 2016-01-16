@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.t1tecnologia.finderj.facade.VagaFacade;
 import br.com.t1tecnologia.finderj.model.Empresa;
 import br.com.t1tecnologia.finderj.model.Vaga;
-import br.com.t1tecnologia.finderj.model.persist.VagaPersist;
 import br.com.t1tecnologia.finderj.repository.EmpresaRepository;
 import br.com.t1tecnologia.finderj.repository.VagaRepository;
 import br.com.t1tecnologia.finderj.service.SessionService;
@@ -27,7 +27,7 @@ public class VagaController {
 	private VagaRepository vagaRepository;
 
 	@Autowired
-	private VagaPersist vagaPersist;
+	private VagaFacade vagaPersist;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView consulta() {
@@ -42,7 +42,7 @@ public class VagaController {
 			mvVaga.addObject("localTrabalho",
 					empresa.getEmprBairro() + ", " + empresa.getEmprCidade() + " - " + empresa.getEmprEstado());
 
-		} else
+		} else if(sessionService.getUsuarioSession().isUsuaAdmin())
 			mvVaga.addObject("vagas", vagaRepository.findByVagasAtivas());
 
 		return mvVaga;

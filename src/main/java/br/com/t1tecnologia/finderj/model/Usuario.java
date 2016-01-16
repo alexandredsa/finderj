@@ -23,7 +23,10 @@ import org.hibernate.annotations.Type;
 @Entity
 public class Usuario implements Serializable {
 
-    @Id
+ 
+	private static final long serialVersionUID = 3426141434795790926L;
+	
+	@Id
     @Column(name = "usua_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;

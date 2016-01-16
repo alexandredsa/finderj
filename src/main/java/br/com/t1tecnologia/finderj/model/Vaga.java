@@ -20,7 +20,10 @@ import javax.persistence.TemporalType;
 @Entity
 public class Vaga implements Serializable{
 
-    @Id
+
+	private static final long serialVersionUID = 3621773436861609275L;
+	
+	@Id
     @Column(name = "vaga_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;

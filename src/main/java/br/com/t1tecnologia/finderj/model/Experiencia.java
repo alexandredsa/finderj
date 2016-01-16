@@ -20,73 +20,73 @@ import javax.persistence.TemporalType;
 @Entity
 public class Experiencia implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "expr_id")
-    private Long ID;
-    @Column(name = "expr_nome", length = 50)
-    private String exprNome;
-    @Column(name = "expr_descricao", length = 200)
-    private String exprDescricao;
-    @Column(name = "expr_dt_inicio")
-    @Temporal(TemporalType.DATE)
-    private Date exprDtInicio;
-    @Column(name = "expr_dt_termino")
-    @Temporal(TemporalType.DATE)
-    private Date exprDtTermino;
-    
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name="expr_carg_id")
-    private Cargo exprCargo;
+	private static final long serialVersionUID = 1434504106172656837L;
 
-    public Cargo getExprCargo() {
-        return exprCargo;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "expr_id")
+	private Long ID;
+	@Column(name = "expr_nome", length = 50)
+	private String exprNome;
+	@Column(name = "expr_descricao", length = 200)
+	private String exprDescricao;
+	@Column(name = "expr_dt_inicio")
+	@Temporal(TemporalType.DATE)
+	private Date exprDtInicio;
+	@Column(name = "expr_dt_termino")
+	@Temporal(TemporalType.DATE)
+	private Date exprDtTermino;
 
-    public void setExprCargo(Cargo exprCargo) {
-        this.exprCargo = exprCargo;
-    }
-    
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "expr_carg_id")
+	private Cargo exprCargo;
 
-    public Long getID() {
-        return ID;
-    }
+	public Cargo getExprCargo() {
+		return exprCargo;
+	}
 
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
+	public void setExprCargo(Cargo exprCargo) {
+		this.exprCargo = exprCargo;
+	}
 
-    public String getExprNome() {
-        return exprNome;
-    }
+	public Long getID() {
+		return ID;
+	}
 
-    public void setExprNome(String exprNome) {
-        this.exprNome = exprNome;
-    }
+	public void setID(Long ID) {
+		this.ID = ID;
+	}
 
-    public String getExprDescricao() {
-        return exprDescricao;
-    }
+	public String getExprNome() {
+		return exprNome;
+	}
 
-    public void setExprDescricao(String exprDescricao) {
-        this.exprDescricao = exprDescricao;
-    }
+	public void setExprNome(String exprNome) {
+		this.exprNome = exprNome;
+	}
 
-    public Date getExprDtInicio() {
-        return exprDtInicio;
-    }
+	public String getExprDescricao() {
+		return exprDescricao;
+	}
 
-    public void setExprDtInicio(Date exprDtInicio) {
-        this.exprDtInicio = exprDtInicio;
-    }
+	public void setExprDescricao(String exprDescricao) {
+		this.exprDescricao = exprDescricao;
+	}
 
-    public Date getExprDtTermino() {
-        return exprDtTermino;
-    }
+	public Date getExprDtInicio() {
+		return exprDtInicio;
+	}
 
-    public void setExprDtTermino(Date exprDtTermino) {
-        this.exprDtTermino = exprDtTermino;
-    }
+	public void setExprDtInicio(Date exprDtInicio) {
+		this.exprDtInicio = exprDtInicio;
+	}
 
+	public Date getExprDtTermino() {
+		return exprDtTermino;
+	}
+
+	public void setExprDtTermino(Date exprDtTermino) {
+		this.exprDtTermino = exprDtTermino;
+	}
 
 }

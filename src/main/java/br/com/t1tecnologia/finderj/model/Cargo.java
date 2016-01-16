@@ -14,14 +14,23 @@ import javax.persistence.Id;
 @Entity
 public class Cargo implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 3551918196296318971L;
+	
+	@Id
     @Column(name = "carg_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;
-    @Column(name = "carg_nome", length = 30)
+    @Column(name = "carg_nome", length = 30, nullable = false, unique = true)
     private String cargNome;
+    
+    public Cargo(){}
+    
 
-    public Long getID() {
+    public Cargo(String cargNome) {
+		this.cargNome = cargNome;
+	}
+
+	public Long getID() {
         return ID;
     }
 

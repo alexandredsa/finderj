@@ -66,6 +66,14 @@
 				</div>
 				<!-- edit form column -->
 				<div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+					<div class="alert alert-danger" role="alert"
+						th:if="${erro} != null">
+						<strong th:text="${erro}"></strong>
+					</div>
+					<div class="alert alert-success" role="alert"
+						th:if="${sucesso} != null">
+						<strong th:text="${sucesso}"></strong>
+					</div>
 					<form method="POST" class="form-horizontal formCadastro"
 						enctype="multipart/form-data" id="frmEmpresa" role="form"
 						action="empresa/editar">
@@ -92,7 +100,7 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">CNPJ:</label>
 							<div class="col-lg-8">
-								<input name="emprCnpj" class="form-control"
+								<input name="emprCnpj" class="form-control cnpj"
 									th:value="${empresa.emprCnpj}" type="text" />
 							</div>
 						</div>
@@ -155,7 +163,7 @@
 						<div class="form-group">
 							<label class="col-lg-3 control-label">Telefone:</label>
 							<div class="col-lg-6">
-								<input name="emprTelefone" class="form-control"
+								<input name="emprTelefone" class="form-control phone"
 									th:value="${empresa.emprTelefone}" type="text" />
 							</div>
 
@@ -189,41 +197,15 @@
 	<!-- /.modal -->
 	<!-- script references -->
 	<script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+	<script th:src="@{/js/jquery.mask.js}"></script>
+	<script th:src="@{/js/jquery.mask.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/alertify.js}"></script>
 	<script th:src="@{/js/alertify.min.js}"></script>
-	<!-- 	<script th:src="@{/js/submit-ajax.js}"></script> -->
+	<script th:src="@{/js/validaCpfCnpj.js}"></script>
+	<script th:src="@{/js/validaTelefone.js}"></script>
+	<script th:src="@{/js/empresa/empresa.js}"></script>
 
-	<script>
-		$('form').submit(
-				function() {
-					$('#urlLogo').replaceWith(
-							$('#emprUrlLogo').attr('id', 'urlLogo').hide());
-					submitForm();
-				})
-
-		function submitForm() {
-
-			$.ajax({
-				type : 'POST',
-				url : $('form').attr('action'),
-				data : $('form').serialize(),
-				contentType : $('form').attr('enctype'),
-				success : function(data) {
-					if (data === 'false') {
-						alertify.error('Erro.');
-					} else {
-						alertify.success('Realizado com sucesso!')
-					}
-
-				},
-				error : function(xhr, status) {
-					console.log(status);
-				}
-			});
-
-		}
-	</script>
 
 </body>
 </html>

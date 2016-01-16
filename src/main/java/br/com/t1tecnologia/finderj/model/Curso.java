@@ -17,7 +17,10 @@ import javax.persistence.TemporalType;
 @Entity
 public class Curso implements Serializable {
 
-    @Id
+   
+	private static final long serialVersionUID = -6928478004972145149L;
+	
+	@Id
     @Column(name = "curs_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ID;

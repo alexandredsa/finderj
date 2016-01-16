@@ -53,7 +53,7 @@
 			<div class="row" th:each="vaga : ${vagas}">
 				<div class="thumbnail" th:switch="${session.ADMIN}">
 					<img th:src="${logo}" class="thumbnail pull-left"
-						style="width: 260px; height: 150px; margin-right: 10px" />
+						style="width: 260px; height: 180px; margin-right: 10px" />
 
 					<div class="caption">
 						<a th:if="true" th:href="'vagas/editar/' + ${vaga.ID}"
@@ -63,10 +63,10 @@
 							<a th:text="${vaga.vagaNome}"></a>
 						</h3>
 						<b th:text="'Empresa: ' + ${emprNome}"></b> <br></br>
-						<b th:text="'Local de Trabalho: ' + ${localTrabalho}"></b>
+						<p th:text="'Local de Trabalho: ' + ${localTrabalho}"></p>
 						<!-- 						<label>A inscrição será encerrada em: <b th:text="${#dates.format(vaga.vagaDtTermino, 'dd/MM/yyyy')}"></b></label> -->
-						<br></br> <small th:text="${vaga.vagaDescricao}"></small>
-						<h4 th:text="'R$' + ${vaga.vagaSalario}"></h4>
+						<p th:text="'Descrição: ' + ${vaga.vagaDescricao}"></p>
+						<h4 th:text="'Salário: R$' + ${vaga.vagaSalario}"></h4>
 					</div>
 				</div>
 

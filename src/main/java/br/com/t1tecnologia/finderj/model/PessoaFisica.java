@@ -3,6 +3,7 @@ package br.com.t1tecnologia.finderj.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.Type;
 
 /**
  *
@@ -23,73 +23,63 @@ import org.hibernate.annotations.Type;
 @Table(name = "Pessoa_Fisica")
 public class PessoaFisica implements Serializable {
 
-    @Id
-    @Column(name = "pfis_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ID;
-    @Column(name = "pfis_nome", length = 30)
-    private String pfisNome;
-    @Column(name = "pfis_telefone", length = 13)
-    private String pfisTelefone;
-    @Type(type = "true_false")
-    @Column(name = "pfis_ic_admin")
-    private Boolean pfisIcAdmin;
+	private static final long serialVersionUID = 8406346326511465046L;
 
-    public List<Vaga> getPfisVaga() {
-        return pfisVaga;
-    }
+	@Id
+	@Column(name = "pfis_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long ID;
+	@Column(name = "pfis_nome", length = 30)
+	private String pfisNome;
+	@Column(name = "pfis_telefone", length = 15)
+	private String pfisTelefone;
 
-    public void setPfisVaga(List<Vaga> pfisVaga) {
-        this.pfisVaga = pfisVaga;
-    }
-    
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pfis_vaga_id")
-    private List<Vaga> pfisVaga = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pfis_vaga_id")
+	private List<Vaga> pfisVaga = new ArrayList<>();
 
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pfis_usua_id", unique = true)
+	private Usuario pfisUsuario;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pfis_usua_id", unique = true)        
-    private Usuario pfisUsuario;
+	public Long getID() {
+		return ID;
+	}
 
-    public Usuario getPfisUsuario() {
-        return pfisUsuario;
-    }
+	public void setID(Long iD) {
+		ID = iD;
+	}
 
-    public void setPfisUsuario(Usuario pfisUsuario) {
-        this.pfisUsuario = pfisUsuario;
-    }
+	public String getPfisNome() {
+		return pfisNome;
+	}
 
-    public String getPfisNome() {
-        return pfisNome;
-    }
+	public void setPfisNome(String pfisNome) {
+		this.pfisNome = pfisNome;
+	}
 
-    public void setPfisNome(String pfisNome) {
-        this.pfisNome = pfisNome;
-    }
+	public String getPfisTelefone() {
+		return pfisTelefone;
+	}
 
-    public String getPfisTelefone() {
-        return pfisTelefone;
-    }
+	public void setPfisTelefone(String pfisTelefone) {
+		this.pfisTelefone = pfisTelefone;
+	}
 
-    public void setPfisTelefone(String pfisTelefone) {
-        this.pfisTelefone = pfisTelefone;
-    }
+	public List<Vaga> getPfisVaga() {
+		return pfisVaga;
+	}
 
-    public Boolean getPfisIcAdmin() {
-        return pfisIcAdmin;
-    }
+	public void setPfisVaga(List<Vaga> pfisVaga) {
+		this.pfisVaga = pfisVaga;
+	}
 
-    public void setPfisIcAdmin(Boolean pfisIcAdmin) {
-        this.pfisIcAdmin = pfisIcAdmin;
-    }
+	public Usuario getPfisUsuario() {
+		return pfisUsuario;
+	}
 
-    public Long getID() {
-        return ID;
-    }
-
-    public void setID(Long ID) {
-        this.ID = ID;
-    }
+	public void setPfisUsuario(Usuario pfisUsuario) {
+		this.pfisUsuario = pfisUsuario;
+	}
 
 }

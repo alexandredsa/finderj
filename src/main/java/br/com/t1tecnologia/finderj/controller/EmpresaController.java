@@ -1,21 +1,21 @@
 package br.com.t1tecnologia.finderj.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.t1tecnologia.finderj.enums.FileSaverPath;
 import br.com.t1tecnologia.finderj.enums.converter.EstadoConverter;
+import br.com.t1tecnologia.finderj.facade.EmpresaFacade;
 import br.com.t1tecnologia.finderj.model.Empresa;
 import br.com.t1tecnologia.finderj.model.Usuario;
 import br.com.t1tecnologia.finderj.repository.EmpresaRepository;
@@ -32,17 +32,19 @@ import br.com.t1tecnologia.finderj.util.FileSaver;
 public class EmpresaController {
 
 	@Autowired
-	EmpresaRepository empresaRepository;
+	private EmpresaRepository empresaRepository;
 
 	@Autowired
-	SessionService sessionService;
+	private SessionService sessionService;
+
+	@Autowired
+	private EmpresaFacade empresaFacade;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView home(Model model) {
+	public ModelAndView home() {
 		Empresa empresa = sessionService.getEmpresaUsuarioSession();
 
 		ModelAndView MvHome = new ModelAndView("empresa/editar");
-		// MvHome.addObject("nomeUsuario", sessionService.getUsuarioName());
 		MvHome.addObject("estados", new EstadoConverter().getOptions());
 		if (empresa != null) {
 			MvHome.addObject("empresa", empresa);
@@ -56,63 +58,46 @@ public class EmpresaController {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = { "/cadastrar" })
-	public String salvar(@Valid Empresa empresa, HttpServletRequest request,
-			@RequestParam("urlLogo") MultipartFile emprUrlLogo) throws Exception {
-		Usuario usuario = sessionService.getUsuarioSession();
-		empresa.setEmprUsuario(usuario);
+	public ModelAndView salvar(@Valid Empresa empresa, HttpServletRequest request,
+			@RequestParam("urlLogo") MultipartFile emprUrlLogo, RedirectAttributes redir) throws Exception {
+		try {
+			if (isEmpresaNomeDisponivel(empresa.getEmprNome())) {
+				empresaFacade.salvar(emprUrlLogo, empresa, request);
+				redir.addFlashAttribute("sucesso", "Dados da Empresa Atualizados com Sucesso!");
+			} else
+				redir.addFlashAttribute("erro", "Nome de Empresa não disponível");
 
-		if (isEmpresaNomeDisponivel(empresa.getEmprNome())) {
-			salvarLogoEmpresa(emprUrlLogo, empresa, request);
-			empresaRepository.save(empresa);
-			return "true";
+		} catch (Exception ex) {
+			redir.addFlashAttribute("erro", "Erro ao salvar Dados de Empresa");
 		}
 
-		return "Nome de empresa já cadastrado.";
+		return new ModelAndView("redirect:/empresa");
 
 	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "/editar")
-	public String editar(@RequestParam("urlLogo") MultipartFile emprUrlLogo,
-			@Valid Empresa empresa, HttpServletRequest request) {
+	public ModelAndView editar(@RequestParam("urlLogo") MultipartFile emprUrlLogo, @Valid Empresa empresa,
+			HttpServletRequest request, RedirectAttributes redir) {
 		try {
-			Usuario usuario = sessionService.getUsuarioSession();
-			Empresa empresaExistente = sessionService
-					.getEmpresaUsuarioSession();
+
+			Empresa empresaExistente = sessionService.getEmpresaUsuarioSession();
 
 			if (empresaExistente != null) {
-				empresa.setEmprUsuario(usuario);
-				empresa.setID(empresaExistente.getID());
-				empresa.setEmprUrlLogo(empresaExistente.getEmprUrlLogo());
-				salvarLogoEmpresa(emprUrlLogo, empresa, request);
-				empresaRepository.save(empresa);
-				return "true";
-			}
+				empresaFacade.salvar(emprUrlLogo, empresa, request);
+			} else
+				redir.addFlashAttribute("erro", "Nome de Empresa não disponível");
 
 		} catch (Exception ex) {
 			ConsoleLog.writeString(ex.getMessage());
+			redir.addFlashAttribute("erro", "Erro ao salvar Dados de Empresa");
 		}
 
-		return "false";
-	}
-
-	private void salvarLogoEmpresa(MultipartFile logo, Empresa empresa,
-			HttpServletRequest request) throws Exception {
-		if (!isValidLogo(logo))
-			return;
-
-		String pathUrl = FileSaver.saveFile(logo,
-				empresa.getEmprNome().concat(".png"),
-				FileSaverPath.PATH_IMAGES_LOGO, request);
-		empresa.setEmprUrlLogo(pathUrl);
+		return new ModelAndView("redirect:/empresa");
 	}
 
 	private boolean isEmpresaNomeDisponivel(String nomeEmpresa) {
 		return empresaRepository.findByEmprNome(nomeEmpresa) == null;
-	}
-
-	private boolean isValidLogo(MultipartFile logo) {
-		return logo.getOriginalFilename().length() > 0;
 	}
 
 }
