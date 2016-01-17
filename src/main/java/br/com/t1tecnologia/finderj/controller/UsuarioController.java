@@ -1,6 +1,7 @@
 package br.com.t1tecnologia.finderj.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.text.MessageFormat;
 
 import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletResponse;
@@ -68,10 +69,12 @@ public class UsuarioController {
 
 	@ResponseBody
 	@RequestMapping(value = "/logar", method = RequestMethod.POST)
-	public ModelAndView autenticar(Usuario u, HttpSession session, HttpServletResponse response, RedirectAttributes redir)
-			throws NoSuchAlgorithmException, LoginException {
-		u = usuarioRepository.findByUsuaLoginAndUsuaSenhaAndUsuaAtivoTrue(u.getUsuaLogin(),
-				ConvertToMd5.CriptografaSenha(u.getUsuaSenha()));
+	public ModelAndView autenticar(Usuario usua, HttpSession session, HttpServletResponse response,
+			RedirectAttributes redir) throws NoSuchAlgorithmException, LoginException {
+		Usuario u = null;
+
+		u = usuarioRepository.findByUsuaLoginAndUsuaSenhaAndUsuaAtivoTrue(usua.getUsuaLogin(),
+				ConvertToMd5.CriptografaSenha(usua.getUsuaSenha()));
 
 		if (u != null) {
 			session.setAttribute(SessionEnum.USUARIO.name(), u.getUsuaLogin());
@@ -88,9 +91,21 @@ public class UsuarioController {
 			if (u.getUsuaTipoUsuario().equals(TipoUsuarioEnum.PESSOA_FISICA) && !u.isUsuaAdmin())
 				return new ModelAndView("redirect:/profissional");
 		}
+
+		if (isUsuarioInativo(usua))
+			redir.addFlashAttribute("erro", MessageFormat.format("A conta {0} foi desativada.", usua.getUsuaLogin()));
+		else
+			redir.addFlashAttribute("erro", "Usuário e/ou senha inválido(s)");
 		
-		redir.addFlashAttribute("erro", "Usuário e/ou senha inválido(s)");
-		return new ModelAndView("redirect:/login") ;
+		
+		redir.addFlashAttribute("usuaLogin", usua.getUsuaLogin());
+
+		return new ModelAndView("redirect:/login");
+	}
+
+	private boolean isUsuarioInativo(Usuario usua) throws NoSuchAlgorithmException {
+		return usuarioRepository.findByUsuaLoginAndUsuaSenhaAndUsuaAtivoFalse(usua.getUsuaLogin(),
+				ConvertToMd5.CriptografaSenha(usua.getUsuaSenha())) != null;
 	}
 
 	private boolean isEmpresaCadastrada() {

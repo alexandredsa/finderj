@@ -30,7 +30,6 @@ public class EmpresaFacade {
 	}
 
 	private void atualizar(MultipartFile emprUrlLogo, Empresa empresa, HttpServletRequest request) throws Exception {
-
 		Usuario usuario = sessionService.getUsuarioSession();
 		empresa.setEmprUsuario(usuario);
 		salvarLogoEmpresa(emprUrlLogo, empresa, request);
@@ -42,6 +41,7 @@ public class EmpresaFacade {
 		if (empresaExistente != null) {
 			empresa.setID(empresaExistente.getID());
 			empresa.setEmprUrlLogo(empresaExistente.getEmprUrlLogo());
+			empresa.setEmprVaga(empresaExistente.getEmprVaga());
 			atualizar(emprUrlLogo, empresa, request);
 		} else
 			inserir(emprUrlLogo, empresa, request);

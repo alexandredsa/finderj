@@ -85,6 +85,7 @@ public class EmpresaController {
 
 			if (empresaExistente != null) {
 				empresaFacade.salvar(emprUrlLogo, empresa, request);
+				redir.addFlashAttribute("sucesso", "Dados da Empresa Atualizados com Sucesso!");
 			} else
 				redir.addFlashAttribute("erro", "Nome de Empresa não disponível");
 
