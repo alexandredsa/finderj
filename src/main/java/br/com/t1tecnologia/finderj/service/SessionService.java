@@ -73,5 +73,13 @@ public class SessionService {
 		}
 		return p;
 	}
+	
+	public boolean isAdmin(){
+		return getUsuarioSession().isUsuaAdmin();
+	}
+
+	public boolean isPessoaJuridicaComEmpresa() {
+		return getEmpresaUsuarioSession() != null;
+	}
 
 }

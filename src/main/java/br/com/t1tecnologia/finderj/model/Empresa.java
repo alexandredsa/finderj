@@ -15,9 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.UniqueConstraint;
-
-import org.hibernate.validator.constraints.Length;
 
 import br.com.t1tecnologia.finderj.enums.EstadoEnum;
 

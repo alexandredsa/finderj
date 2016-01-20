@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.t1tecnologia.finderj.facade.VagaFacade;
-import br.com.t1tecnologia.finderj.model.Empresa;
 import br.com.t1tecnologia.finderj.model.Vaga;
-import br.com.t1tecnologia.finderj.repository.EmpresaRepository;
 import br.com.t1tecnologia.finderj.repository.VagaRepository;
 import br.com.t1tecnologia.finderj.service.SessionService;
 
@@ -27,24 +25,12 @@ public class VagaController {
 	private VagaRepository vagaRepository;
 
 	@Autowired
-	private VagaFacade vagaPersist;
+	private VagaFacade vagaFacade;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView consulta() {
 		ModelAndView mvVaga = new ModelAndView("vaga/consulta");
-		Empresa empresa = sessionService.getEmpresaUsuarioSession();
-
-		if (empresa != null) {
-			mvVaga.addObject("vagas", empresa.getEmprVaga());
-			mvVaga.addObject("logo", empresa.getEmprUrlLogo());
-			mvVaga.addObject("emprNome", empresa.getEmprNome());
-
-			mvVaga.addObject("localTrabalho",
-					empresa.getEmprBairro() + ", " + empresa.getEmprCidade() + " - " + empresa.getEmprEstado());
-
-		} else if(sessionService.getUsuarioSession().isUsuaAdmin())
-			mvVaga.addObject("vagas", vagaRepository.findByVagasAtivas());
-
+		mvVaga.addObject("vagas", vagaFacade.getVagas());
 		return mvVaga;
 	}
 
@@ -64,7 +50,7 @@ public class VagaController {
 	@RequestMapping(value = "cadastrar", method = RequestMethod.POST)
 	public ModelAndView cadastrar(Vaga vaga) {
 		vaga.setVagaDtInicio(new Date());
-		vagaPersist.salvar(vaga);
+		vagaFacade.salvar(vaga);
 		return new ModelAndView("redirect:/vagas");
 	}
 
@@ -76,7 +62,7 @@ public class VagaController {
 		vagaRepository.save(vaga);
 		return new ModelAndView("redirect:/vagas");
 	}
-	
+
 	@RequestMapping(value = "excluir/{id}", method = RequestMethod.GET)
 	public ModelAndView deletar(Vaga vaga, @PathVariable Long id) {
 		vaga.setID(id);

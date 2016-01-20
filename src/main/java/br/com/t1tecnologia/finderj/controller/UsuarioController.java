@@ -7,7 +7,6 @@ import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,6 +89,9 @@ public class UsuarioController {
 
 			if (u.getUsuaTipoUsuario().equals(TipoUsuarioEnum.PESSOA_FISICA) && !u.isUsuaAdmin())
 				return new ModelAndView("redirect:/profissional");
+			
+			if(u.isUsuaAdmin())
+				return new ModelAndView("redirect:/admin");
 		}
 
 		if (isUsuarioInativo(usua))
